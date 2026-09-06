@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panorama</title>
+
+<!-- É daqui que o iPhone tira o ícone e o nome ao salvar na tela de início.
+     O web app do Apps Script não pode fazer isso: o documento de topo lá é
+     a página do Google, e o cabeçalho dela não é nosso. -->
+<link rel="apple-touch-icon" href="panorama180.png">
+<link rel="icon" href="panorama64.png">
+<meta name="apple-mobile-web-app-title" content="Panorama">
+
+<style>
+  body{
+    margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:#2A2340; color:#EDEAF3;
+    font:16px/1.5 -apple-system,BlinkMacSystemFont,"Helvetica Neue",sans-serif;
+    text-align:center; padding:2rem;
+  }
+  a{color:#C7B6FF}
+</style>
+</head>
+<body>
+<div>
+  <p id="estado">Abrindo o Panorama…</p>
+</div>
+
+<script>
+// O token NÃO mora neste arquivo — o repositório é público.
+// Ele vem no endereço deste atalho (?t=…) e é só repassado adiante.
+// Assim o segredo vive no atalho da tela de início, e não no GitHub.
+(function () {
+  var DESTINO = 'https://script.google.com/a/macros/mresults.com.br/s/' +
+                'AKfycbxc_D7zZ6XSugFdzMrvPybmJntcPUv62LK8lY0Ror7uk8nXtmLhflJ-ldzS6wL3Bf6v/exec';
+
+  var t = new URLSearchParams(location.search).get('t');
+
+  if (!t) {
+    document.getElementById('estado').innerHTML =
+      'Falta o token no endereço.<br>Use o link completo, com <code>?t=</code> no final.';
+    return;
+  }
+
+  location.replace(DESTINO + '?t=' + encodeURIComponent(t));
+})();
+</script>
+</body>
+</html>
